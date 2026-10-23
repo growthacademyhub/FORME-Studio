@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORME — Modern Essentials. Timeless Style.</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            offwhite: '#FBFBF9',
+                            beige: '#F3F0EA',
+                            charcoal: '#2C2B29',
+                            black: '#111111',
+                            gray: '#E5E3DF',
+                            lightgray: '#F5F5F3',
+                            accent: '#8C857B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS Styles -->
+    <style>
+        body {
+            background-color: #FBFBF9;
+            color: #111111;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3F0EA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2C2B29;
+            border-radius: 3px;
+        }
+
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.7s ease;
+        }
+        .img-zoom-container:hover .img-zoom {
+            transform: scale(1.05);
+        }
+
+        .badge-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .drawer-slide {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Console styling */
+        .console-json {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .active-tab {
+            border-bottom: 2px solid #111111;
+            font-weight: 500;
+        }
+    </style>
+
+    <!-- Placeholder Google Tag Manager (Safe initialization) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        // GTM Container ID Placeholder: GTM-XXXXXXX
+        // Replace GTM-XXXXXXX with your real GTM ID in production
+    </script>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-brand-charcoal selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-black text-white text-xs py-2 px-4 text-center tracking-widest uppercase flex justify-between items-center z-50 relative">
+        <span class="hidden sm:inline-block">Free Shipping on Orders Over $150</span>
+        <span class="w-full sm:w-auto text-center font-medium">FORME DIGITAL ANALYTICS & E-COMMERCE LAB</span>
+        <button onclick="toggleModal('guideModal')" class="underline hover:text-brand-gray text-xs font-semibold hidden sm:inline-block">
+            <i class="fa-solid fa-book-open mr-1"></i> Analytics Guide
+        </button>
+    </div>
+
+    <!-- MAIN STICKY NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-brand-offwhite/90 backdrop-blur-md border-b border-brand-gray/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Mobile Menu Trigger -->
+            <div class="flex items-center lg:hidden">
+                <button onclick="toggleDrawer('mobileNavDrawer')" class="p-2 text-brand-black focus:outline-none" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Brand Logo -->
+            <div class="flex-1 lg:flex-none text-center lg:text-left">
+                <a href="#" onclick="navigateTo('home'); return false;" class="text-2xl sm:text-3xl font-light tracking-[0.25em] text-brand-black font-serif uppercase">
+                    FORME
+                </a>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex space-x-8 text-xs tracking-widest font-medium uppercase text-brand-black">
+                <a href="#" onclick="navigateTo('plp', 'all'); return false;" class="hover:opacity-60 transition">All Products</a>
+                <a href="#" onclick="navigateTo('plp', 'men'); return false;" class="hover:opacity-60 transition">Men</a>
+                <a href="#" onclick="navigateTo('plp', 'women'); return false;" class="hover:opacity-60 transition">Women</a>
+                <a href="#" onclick="navigateTo('plp', 'essentials'); return false;" class="hover:opacity-60 transition">Essentials</a>
+                <a href="#" onclick="navigateTo('plp', 'new'); return false;" class="hover:opacity-60 transition">New Arrivals</a>
+            </nav>
+
+            <!-- Actions Bar -->
+            <div class="flex items-center space-x-5">
+                <button onclick="toggleSearchBar()" class="p-2 text-brand-black hover:opacity-60 transition" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button onclick="toggleConsole()" class="p-2 text-brand-black hover:opacity-60 transition relative" title="Toggle DataLayer Console">
+                    <i class="fa-solid fa-terminal text-lg"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-emerald-500 rounded-full badge-pulse"></span>
+                </button>
+                <button onclick="toggleDrawer('cartDrawer')" class="p-2 text-brand-black hover:opacity-60 transition relative" aria-label="Cart Bag">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 bg-brand-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SEARCH OVERLAY BAR -->
+        <div id="searchBar" class="hidden border-t border-brand-gray/50 bg-brand-beige p-4 transition-all duration-300">
+            <div class="max-w-3xl mx-auto flex items-center space-x-3">
+                <i class="fa-solid fa-magnifying-glass text-brand-accent"></i>
+                <input type="text" id="searchInput" onkeyup="handleSearch(event)" placeholder="Search clothing, fabrics, essentials..." class="w-full bg-transparent border-none text-sm text-brand-black placeholder-brand-accent focus:outline-none focus:ring-0">
+                <button onclick="toggleSearchBar()" class="text-xs uppercase text-brand-black font-semibold hover:opacity-60">Close</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-24 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 bg-brand-black text-white px-5 py-3 rounded shadow-xl flex items-center space-x-3 pointer-events-none">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastMessage" class="text-xs font-medium tracking-wide">Item added to your bag</span>
+    </div>
+
+    <!-- MAIN VIEW CONTAINER (DYNAMICALLY INJECTED CONTENT) -->
+    <main id="appView" class="flex-grow">
+        <!-- Views rendered via JavaScript -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-black text-brand-beige border-t border-brand-charcoal pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="space-y-4">
+                <span class="text-2xl font-serif tracking-[0.2em] text-white uppercase">FORME</span>
+                <p class="text-xs text-brand-gray leading-relaxed">
+                    Modern Essentials. Timeless Style.<br>
+                    Crafted for everyday living with absolute restraint and precision.
+                </p>
+                <div class="text-[11px] text-zinc-500 pt-2">
+                    &copy; 2026 FORME Lab. Fictional Store for Performance Marketing Testing.
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-semibold tracking-widest uppercase text-white mb-4">Shop Collections</h4>
+                <ul class="space-y-2 text-xs text-brand-gray">
+                    <li><a href="#" onclick="navigateTo('plp', 'men'); return false;" class="hover:text-white transition">Men's Wardrobe</a></li>
+                    <li><a href="#" onclick="navigateTo('plp', 'women'); return false;" class="hover:text-white transition">Women's Wardrobe</a></li>
+                    <li><a href="#" onclick="navigateTo('plp', 'essentials'); return false;" class="hover:text-white transition">Everyday Essentials</a></li>
+                    <li><a href="#" onclick="navigateTo('plp', 'new'); return false;" class="hover:text-white transition">New Arrivals</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-semibold tracking-widest uppercase text-white mb-4">Client Care</h4>
+                <ul class="space-y-2 text-xs text-brand-gray">
+                    <li><a href="#" onclick="alert('Demo Store: Shipping is free over $150 standard flat rate.'); return false;" class="hover:text-white transition">Shipping & Returns</a></li>
+                    <li><a href="#" onclick="alert('Demo Store: Contact lab@forme-fashion.demo'); return false;" class="hover:text-white transition">Contact & Support</a></li>
+                    <li><a href="#" onclick="toggleModal('guideModal'); return false;" class="hover:text-white transition">GTM Instrumentation Guide</a></li>
+                    <li><a href="#" onclick="alert('Demo Store: Privacy Notice - No real user personal data is collected or sent.'); return false;" class="hover:text-white transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-semibold tracking-widest uppercase text-white mb-4">Join The Studio</h4>
+                <p class="text-xs text-brand-gray mb-3">Subscribe to receive private preview access and editorial updates.</p>
+                <form onsubmit="handleSubscribe(event)" class="space-y-2">
+                    <input type="email" required placeholder="Enter email address" class="w-full bg-brand-charcoal border border-zinc-700 text-xs py-2.5 px-3 text-white placeholder-zinc-500 rounded focus:outline-none focus:border-white">
+                    <button type="submit" class="w-full bg-white text-brand-black text-xs uppercase font-semibold py-2.5 tracking-widest rounded hover:bg-brand-gray transition">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OVER CART DRAWER -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleDrawer('cartDrawer')"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-brand-offwhite text-brand-black shadow-2xl flex flex-col">
+                <!-- Cart Header -->
+                <div class="p-6 border-b border-brand-gray flex items-center justify-between">
+                    <h2 class="text-sm font-semibold uppercase tracking-widest flex items-center space-x-2">
+                        <span>Shopping Bag</span>
+                        <span id="drawerCartCount" class="text-xs font-normal text-brand-accent">(0 items)</span>
+                    </h2>
+                    <button onclick="toggleDrawer('cartDrawer')" class="p-2 text-brand-black hover:opacity-60">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Free Shipping Progress Bar -->
+                <div class="bg-brand-beige px-6 py-3 border-b border-brand-gray/50">
+                    <div class="flex justify-between text-[11px] mb-1">
+                        <span id="shippingThresholdText">Add $150.00 for Free Shipping</span>
+                        <span id="shippingThresholdPercent" class="font-semibold">0%</span>
+                    </div>
+                    <div class="w-full bg-brand-gray rounded-full h-1.5 overflow-hidden">
+                        <div id="shippingProgressBar" class="bg-brand-black h-1.5 transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cartDrawerItems" class="flex-grow overflow-y-auto p-6 space-y-6">
+                    <!-- Dynamic cart items -->
+                </div>
+
+                <!-- Cart Footer / Summary -->
+                <div class="p-6 border-t border-brand-gray bg-white space-y-4">
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-brand-accent">Subtotal</span>
+                            <span id="drawerSubtotal" class="font-medium">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-brand-accent">Estimated Shipping</span>
+                            <span id="drawerShipping" class="font-medium">Calculated at checkout</span>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-brand-gray/50 flex justify-between text-sm font-semibold">
+                        <span>Total</span>
+                        <span id="drawerTotal">$0.00</span>
+                    </div>
+                    <button onclick="toggleDrawer('cartDrawer'); navigateTo('checkout');" class="w-full bg-brand-black text-white text-xs font-semibold tracking-widest uppercase py-3.5 rounded hover:bg-brand-charcoal transition flex items-center justify-center space-x-2">
+                        <span>Proceed to Checkout</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                    <button onclick="toggleDrawer('cartDrawer'); navigateTo('cart');" class="w-full bg-transparent border border-brand-black text-brand-black text-xs font-semibold tracking-widest uppercase py-2.5 rounded hover:bg-brand-beige transition">
+                        View Full Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobileNavDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleDrawer('mobileNavDrawer')"></div>
+        <div class="fixed inset-y-0 left-0 max-w-full flex">
+            <div class="w-screen max-w-xs bg-brand-offwhite p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between pb-6 border-b border-brand-gray">
+                        <span class="text-xl font-serif tracking-widest uppercase font-semibold">FORME</span>
+                        <button onclick="toggleDrawer('mobileNavDrawer')" class="p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+                    <nav class="mt-8 space-y-5 text-sm uppercase tracking-widest font-medium">
+                        <a href="#" onclick="toggleDrawer('mobileNavDrawer'); navigateTo('plp', 'all'); return false;" class="block hover:opacity-60">All Products</a>
+                        <a href="#" onclick="toggleDrawer('mobileNavDrawer'); navigateTo('plp', 'men'); return false;" class="block hover:opacity-60">Men</a>
+                        <a href="#" onclick="toggleDrawer('mobileNavDrawer'); navigateTo('plp', 'women'); return false;" class="block hover:opacity-60">Women</a>
+                        <a href="#" onclick="toggleDrawer('mobileNavDrawer'); navigateTo('plp', 'essentials'); return false;" class="block hover:opacity-60">Essentials</a>
+                        <a href="#" onclick="toggleDrawer('mobileNavDrawer'); navigateTo('plp', 'new'); return false;" class="block hover:opacity-60">New Arrivals</a>
+                    </nav>
+                </div>
+                <div class="pt-6 border-t border-brand-gray text-xs space-y-3 text-brand-accent">
+                    <button onclick="toggleDrawer('mobileNavDrawer'); toggleModal('guideModal');" class="block underline">Analytics & GTM Guide</button>
+                    <p>FORME Digital Marketing Lab &copy; 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATALAYER & ANALYTICS INSPECTOR DRAWER CONSOLE -->
+    <div id="consoleDrawer" class="fixed bottom-0 left-0 right-0 z-50 bg-brand-black text-emerald-400 border-t-2 border-emerald-500 shadow-2xl transition-all duration-300 translate-y-full">
+        <!-- Console Bar Header -->
+        <div class="px-4 py-2.5 bg-zinc-900 flex items-center justify-between border-b border-zinc-800 text-xs">
+            <div class="flex items-center space-x-3">
+                <span class="bg-emerald-500 text-black px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Live Inspector</span>
+                <span class="text-zinc-300 font-mono text-[11px]"><i class="fa-solid fa-database mr-1"></i> window.dataLayer</span>
+                <span id="eventCounter" class="bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-full text-[10px]">0 Events</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="clearConsoleLog()" class="text-zinc-400 hover:text-white text-xs px-2 py-1 rounded bg-zinc-800 hover:bg-zinc-700 transition">Clear Console</button>
+                <button onclick="toggleConsole()" class="text-zinc-400 hover:text-white p-1"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+        </div>
+        
+        <!-- Console Log Display Body -->
+        <div id="consoleLogContainer" class="h-64 overflow-y-auto p-4 text-xs font-mono space-y-3 bg-black">
+            <!-- Event items pushed dynamically here -->
+        </div>
+    </div>
+
+    <!-- DOCUMENTATION & GUIDE MODAL -->
+    <div id="guideModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="min-h-screen px-4 text-center flex items-center justify-center">
+            <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleModal('guideModal')"></div>
+            
+            <div class="inline-block w-full max-w-4xl p-6 sm:p-8 my-8 text-left transition-all transform bg-white shadow-2xl rounded-lg z-10 relative text-brand-black max-h-[85vh] overflow-y-auto">
+                <div class="flex justify-between items-center border-b border-brand-gray pb-4 mb-6">
+                    <div>
+                        <h3 class="text-xl font-serif font-semibold">Performance Marketing & GTM Implementation Guide</h3>
+                        <p class="text-xs text-brand-accent">FORME E-Commerce Tracking Lab Setup</p>
+                    </div>
+                    <button onclick="toggleModal('guideModal')" class="p-2 text-brand-black hover:opacity-60"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+
+                <div class="space-y-6 text-xs text-zinc-700 leading-relaxed">
+                    <!-- Section 1 -->
+                    <div class="bg-brand-beige p-4 rounded-md">
+                        <h4 class="font-bold text-sm text-brand-black mb-1">1. Container Setup & Script Insertion</h4>
+                        <p>To connect your own Google Tag Manager container, replace the placeholder tag in the code head:</p>
+                        <code class="block bg-zinc-900 text-emerald-400 p-2.5 rounded mt-2 text-[11px] font-mono">
+                            &lt;!-- Replace GTM-XXXXXXX with your actual Container ID --&gt;<br>
+                            &lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':<br>
+                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],<br>
+                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=<br>
+                            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);<br>
+                            })(window,document,'script','dataLayer','GTM-YOUR-ID');&lt;/script&gt;
+                        </code>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div>
+                        <h4 class="font-bold text-sm text-brand-black mb-2">2. Implemented GA4 & Meta DataLayer Events</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px]">
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">view_item_list</span>
+                                <p class="text-zinc-500">Fires on PLP load or when filter changes. Maps to Meta ViewCategory.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">select_item</span>
+                                <p class="text-zinc-500">Fires when user clicks a product card to open PDP.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">view_item</span>
+                                <p class="text-zinc-500">Fires when product details page is loaded. Maps to Meta ViewContent.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">add_to_cart</span>
+                                <p class="text-zinc-500">Fires after size/color validation succeeds. Maps to Meta AddToCart.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">view_cart</span>
+                                <p class="text-zinc-500">Fires when user opens bag drawer or cart view.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">begin_checkout</span>
+                                <p class="text-zinc-500">Fires when user proceeds to checkout. Maps to Meta InitiateCheckout.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">add_shipping_info</span>
+                                <p class="text-zinc-500">Fires when shipping address & method are submitted.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded">
+                                <span class="font-bold text-brand-black">add_payment_info</span>
+                                <p class="text-zinc-500">Fires when demo card choice is chosen. Maps to Meta AddPaymentInfo.</p>
+                            </div>
+                            <div class="border border-brand-gray p-3 rounded col-span-1 md:col-span-2 bg-emerald-50 border-emerald-200">
+                                <span class="font-bold text-emerald-900">purchase</span>
+                                <p class="text-emerald-700">Fires upon successful demo order placement. Unique transaction_id prevents duplicate conversion counts on refreshes!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div>
+                        <h4 class="font-bold text-sm text-brand-black mb-2">3. Recommended GTM Trigger & Tag Config</h4>
+                        <ol class="list-decimal pl-4 space-y-1">
+                            <li>Create a Custom Event trigger in GTM matching event name: <code class="bg-zinc-100 px-1 font-mono">add_to_cart|purchase|view_item|begin_checkout</code>.</li>
+                            <li>For GA4: Create GA4 Event Tags referencing <code class="bg-zinc-100 px-1 font-mono">{{Event}}</code> and pass Send Ecommerce Data checked.</li>
+                            <li>For Meta Pixel: Use Tag Assistant or GTM Meta Template to map <code class="bg-zinc-100 px-1 font-mono">value</code>, <code class="bg-zinc-100 px-1 font-mono">currency</code>, and <code class="bg-zinc-100 px-1 font-mono">content_ids</code>.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-brand-gray flex justify-end">
+                    <button onclick="toggleModal('guideModal')" class="bg-brand-black text-white px-5 py-2 text-xs uppercase font-semibold tracking-widest rounded hover:bg-brand-charcoal">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT APPLICATION CODE -->
+    <script>
+        /* ==========================================================================
+           1. PRODUCT CATALOG DATA (12 DEMO PRODUCTS)
+           ========================================================================== */
+        const PRODUCTS = [
+            // MEN PRODUCTS
+            {
+                id: "FORME-M-01",
+                name: "Essential Cotton T-Shirt",
+                category: "Men",
+                collection: "Everyday Essentials",
+                price: 45.00,
+                salePrice: null,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["White", "Charcoal", "Black"],
+                image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+                description: "Crafted from 100% organic combed cotton with a refined weight. Tailored with modern proportions and drop-shoulder stitching for structured silhouette.",
+                details: ["100% Organic Cotton", "Pre-shrunk finish", "Fabric weight: 220 GSM", "Made in Portugal"],
+                isNew: true
+            },
+            {
+                id: "FORME-M-02",
+                name: "Heavyweight Relaxed T-Shirt",
+                category: "Men",
+                collection: "Elevated Basics",
+                price: 58.00,
+                salePrice: 48.00,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["Taupe", "Ivory", "Black"],
+                image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80",
+                description: "A substantial, heavyweight tee built for layering. Micro-ribbed collar and clean seam detailing ensure longevity through daily wear.",
+                details: ["300 GSM Heavy Cotton", "Boxy modern fit", "Reinforced collar", "Cold wash only"],
+                isNew: false
+            },
+            {
+                id: "FORME-M-03",
+                name: "Premium Oxford Shirt",
+                category: "Men",
+                collection: "Modern Classics",
+                price: 88.00,
+                salePrice: null,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["Light Blue", "White"],
+                image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80",
+                description: "Classic oxford cloth weave with a softened wash treatment. Designed to transition seamlessly from smart tailoring to relaxed off-duty style.",
+                details: ["100% Egyptian Cotton", "Mother-of-pearl buttons", "Button-down collar", "Curved hem"],
+                isNew: true
+            },
+            {
+                id: "FORME-M-04",
+                name: "Linen Button-Down Shirt",
+                category: "Men",
+                collection: "Everyday Essentials",
+                price: 95.00,
+                salePrice: null,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["Sand", "White", "Navy"],
+                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
+                description: "Breathable pure linen tailored for warm weather elegance. Garment-dyed for subtle tonal texture and exceptional softness.",
+                details: ["100% European Flax Linen", "Naturally thermoregulating", "Relaxed fit", "Machine washable"],
+                isNew: false
+            },
+            {
+                id: "FORME-M-05",
+                name: "Relaxed Tailored Trousers",
+                category: "Men",
+                collection: "Modern Classics",
+                price: 110.00,
+                salePrice: 92.00,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["Charcoal", "Black", "Olive"],
+                image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80",
+                description: "Tailored trousers featuring subtle front pleating and an elasticized waist construction. Architectural comfort meets effortless drape.",
+                details: ["Wool & Viscose Blend", "Single front pleats", "Hidden drawstring", "Cropped length"],
+                isNew: false
+            },
+            {
+                id: "FORME-M-06",
+                name: "Minimalist Crewneck Sweatshirt",
+                category: "Men",
+                collection: "Elevated Basics",
+                price: 82.00,
+                salePrice: null,
+                sizes: ["S", "M", "L", "XL"],
+                colors: ["Oatmeal", "Black", "Grey"],
+                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+                description: "French terry sweatshirt constructed with flatlock seams and tonal emblem embroidery. Essential comfort redefined for modern living.",
+                details: ["100% Organic French Terry", "400 GSM heavy weight", "Ribbed cuffs and hem", "Preshrunk"],
+                isNew: true
+            },
+
+            // WOMEN PRODUCTS
+            {
+                id: "FORME-W-07",
+                name: "Essential Fitted T-Shirt",
+                category: "Women",
+                collection: "Everyday Essentials",
+                price: 42.00,
+                salePrice: null,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["Ivory", "Black", "Taupe"],
+                image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
+                description: "A refined fitted tee made from pima cotton stretch jersey. Beautiful sculptured contouring designed to wear alone or layer.",
+                details: ["95% Pima Cotton, 5% Elastane", "Crew neckline", "Ultra-soft touch", "Fitted silhouette"],
+                isNew: true
+            },
+            {
+                id: "FORME-W-08",
+                name: "Oversized Cotton Shirt",
+                category: "Women",
+                collection: "Modern Classics",
+                price: 85.00,
+                salePrice: null,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["White", "Sky Blue"],
+                image: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=800&q=80",
+                description: "Crisp poplin oversized shirt with exaggerated cuffs and dropped shoulders. Clean, architectural shirting at its finest.",
+                details: ["100% Crisp Cotton Poplin", "Extended cuff details", "High-low hem", "Chest pocket"],
+                isNew: false
+            },
+            {
+                id: "FORME-W-09",
+                name: "Minimalist Knit Top",
+                category: "Women",
+                collection: "Elevated Basics",
+                price: 78.00,
+                salePrice: 65.00,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["Beige", "Black"],
+                image: "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=800&q=80",
+                description: "Fine gauge ribbed knit top crafted from viscose rayon yarn. Offers a flattering drape and silky tactility.",
+                details: ["80% Viscose, 20% Nylon", "Fine ribbed texture", "Boat neckline", "Dry clean or hand wash"],
+                isNew: true
+            },
+            {
+                id: "FORME-W-10",
+                name: "Relaxed Linen Trousers",
+                category: "Women",
+                collection: "Everyday Essentials",
+                price: 105.00,
+                salePrice: null,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["Off-White", "Charcoal", "Natural"],
+                image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+                description: "High-waisted linen trousers featuring a wide-leg cut and clean waistband. Effortless summer dressing with quiet sophistication.",
+                details: ["100% Pure Flax Linen", "Side slit pockets", "Concealed side zipper", "Wide leg silhouette"],
+                isNew: false
+            },
+            {
+                id: "FORME-W-11",
+                name: "Everyday Midi Dress",
+                category: "Women",
+                collection: "Modern Classics",
+                price: 120.00,
+                salePrice: null,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["Black", "Olive"],
+                image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
+                description: "Sleek column midi dress cut from a substantial compact jersey knit. Elegant side slit for fluid movement and ease.",
+                details: ["Heavyweight Modal Jersey", "Subtle side slit", "High boatneck", "Wrinkle resistant"],
+                isNew: true
+            },
+            {
+                id: "FORME-W-12",
+                name: "Premium Knit Cardigan",
+                category: "Women",
+                collection: "Elevated Basics",
+                price: 115.00,
+                salePrice: 98.00,
+                sizes: ["XS", "S", "M", "L"],
+                colors: ["Cream", "Charcoal"],
+                image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+                description: "Relaxed V-neck cardigan knitted in a soft wool-cotton blend. Finished with horn buttons and dropped shoulder seams.",
+                details: ["50% Wool, 50% Organic Cotton", "Natural horn buttons", "Deep V-neck cut", "Ribbed trims"],
+                isNew: false
+            }
+        ];
+
+        /* ==========================================================================
+           2. GLOBAL STATE MANAGEMENT
+           ========================================================================== */
+        let state = {
+            currentView: 'home',
+            viewParam: null, // Product ID or Category Filter
+            cart: JSON.parse(localStorage.getItem('forme_cart') || '[]'),
+            selectedProduct: null,
+            selectedSize: '',
+            selectedColor: '',
+            selectedQty: 1,
+            plpFilters: {
+                category: 'all',
+                size: 'all',
+                color: 'all',
+                sort: 'featured',
+                search: ''
+            },
+            orderCompleted: false,
+            lastOrder: null
+        };
+
+        /* ==========================================================================
+           3. DATA LAYER ANALYTICS HELPER
+           ========================================================================== */
+        function pushToDataLayer(eventName, eventData = {}) {
+            const payload = {
+                event: eventName,
+                timestamp: new Date().toISOString(),
+                ...eventData
+            };
+
+            // Push to browser window.dataLayer
+            window.dataLayer.push(payload);
+
+            // Render live event to inspector console
+            logToConsoleDrawer(eventName, payload);
+        }
+
+        function logToConsoleDrawer(eventName, payload) {
+            const logContainer = document.getElementById('consoleLogContainer');
+            const eventCounter = document.getElementById('eventCounter');
+            
+            if (!logContainer) return;
+
+            const entry = document.createElement('div');
+            entry.className = "border border-zinc-800 p-2.5 rounded bg-zinc-950 text-emerald-400 space-y-1";
+            
+            const timeStr = new Date().toLocaleTimeString();
+            entry.innerHTML = `
+                <div class="flex justify-between items-center text-[10px] text-zinc-400 border-b border-zinc-800 pb-1">
+                    <span class="font-bold text-white uppercase tracking-wider">${eventName}</span>
+                    <span>${timeStr}</span>
+                </div>
+                <pre class="console-json text-[11px] text-emerald-300 mt-1">${JSON.stringify(payload, null, 2)}</pre>
+            `;
+
+            logContainer.prepend(entry);
+
+            // Update badge count
+            const currentLogs = logContainer.children.length;
+            if (eventCounter) eventCounter.innerText = `${currentLogs} Events`;
+        }
+
+        function clearConsoleLog() {
+            const logContainer = document.getElementById('consoleLogContainer');
+            if (logContainer) logContainer.innerHTML = '';
+            const eventCounter = document.getElementById('eventCounter');
+            if (eventCounter) eventCounter.innerText = `0 Events`;
+        }
+
+        /* ==========================================================================
+           4. NAVIGATION & VIEW ROUTER
+           ========================================================================== */
+        function navigateTo(view, param = null) {
+            state.currentView = view;
+            state.viewParam = param;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const app = document.getElementById('appView');
+
+            if (view === 'home') {
+                renderHome(app);
+            } else if (view === 'plp') {
+                if (param) state.plpFilters.category = param;
+                renderPLP(app);
+            } else if (view === 'pdp') {
+                renderPDP(app, param);
+            } else if (view === 'cart') {
+                renderCartPage(app);
+            } else if (view === 'checkout') {
+                renderCheckoutPage(app);
+            } else if (view === 'confirmation') {
+                renderConfirmationPage(app);
+            }
+
+            updateCartUI();
+        }
+
+        /* ==========================================================================
+           5. VIEW RENDERERS
+           ========================================================================== */
+
+        // --- HOMEPAGE RENDERER ---
+        function renderHome(container) {
+            container.innerHTML = `
+                <!-- HERO SECTION -->
+                <section class="relative h-[85vh] bg-brand-charcoal overflow-hidden flex items-center justify-center text-center px-4">
+                    <div class="absolute inset-0 opacity-65">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=2000&q=80" alt="FORME Editorial" class="w-full h-full object-cover object-center">
+                    </div>
+                    <div class="relative z-10 max-w-2xl text-white space-y-6 animate-fade-in">
+                        <span class="text-xs tracking-[0.3em] font-medium uppercase text-brand-gray">Spring / Summer Edition</span>
+                        <h1 class="text-4xl sm:text-6xl font-serif tracking-tight font-light leading-tight">Less, But Better.</h1>
+                        <p class="text-sm sm:text-base text-brand-gray font-light max-w-lg mx-auto leading-relaxed">
+                            Thoughtfully chosen essentials. Designed for everyday living with absolute architectural restraint.
+                        </p>
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button onclick="navigateTo('plp', 'all')" class="w-full sm:w-auto bg-white text-brand-black px-8 py-3.5 text-xs font-semibold tracking-widest uppercase hover:bg-brand-gray transition rounded-sm">Shop Collection</button>
+                            <button onclick="navigateTo('plp', 'essentials')" class="w-full sm:w-auto border border-white text-white px-8 py-3.5 text-xs font-semibold tracking-widest uppercase hover:bg-white hover:text-brand-black transition rounded-sm">Explore Essentials</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FEATURED COLLECTIONS GRID -->
+                <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div class="text-center mb-12">
+                        <h2 class="text-xs font-semibold tracking-widest uppercase text-brand-accent mb-2">Curated Ranges</h2>
+                        <p class="text-2xl sm:text-3xl font-serif">Featured Collections</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div onclick="navigateTo('plp', 'essentials')" class="group cursor-pointer img-zoom-container relative bg-brand-beige rounded overflow-hidden aspect-[3/4]">
+                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover img-zoom" alt="Everyday Essentials">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
+                                <h3 class="text-xl font-serif">Everyday Essentials</h3>
+                                <p class="text-xs text-brand-gray mt-1">Core wardrobe foundational staples</p>
+                            </div>
+                        </div>
+
+                        <div onclick="navigateTo('plp', 'all')" class="group cursor-pointer img-zoom-container relative bg-brand-beige rounded overflow-hidden aspect-[3/4]">
+                            <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover img-zoom" alt="Modern Classics">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
+                                <h3 class="text-xl font-serif">Modern Classics</h3>
+                                <p class="text-xs text-brand-gray mt-1">Refined tailoring and silhouette work</p>
+                            </div>
+                        </div>
+
+                        <div onclick="navigateTo('plp', 'all')" class="group cursor-pointer img-zoom-container relative bg-brand-beige rounded overflow-hidden aspect-[3/4]">
+                            <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover img-zoom" alt="Elevated Basics">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
+                                <h3 class="text-xl font-serif">Elevated Basics</h3>
+                                <p class="text-xs text-brand-gray mt-1">Premium materials and tactile finishes</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NEW ARRIVALS GRID -->
+                <section class="bg-brand-beige/50 py-20 border-y border-brand-gray/50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between items-end mb-12">
+                            <div>
+                                <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Just Landed</span>
+                                <h2 class="text-2xl sm:text-3xl font-serif">New Arrivals</h2>
+                            </div>
+                            <button onclick="navigateTo('plp', 'new')" class="text-xs font-semibold tracking-widest uppercase text-brand-black hover:opacity-60 transition border-b border-brand-black pb-1">View All</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="homeNewArrivals">
+                            ${PRODUCTS.filter(p => p.isNew).slice(0, 4).map(product => renderProductCardHTML(product)).join('')}
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BRAND PHILOSOPHY SECTION -->
+                <section class="max-w-4xl mx-auto px-4 py-24 text-center space-y-6">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Our Philosophy</span>
+                    <h2 class="text-2xl sm:text-4xl font-serif font-light leading-snug">
+                        "We believe clothes should empower expression through modern simplicity rather than loud branding."
+                    </h2>
+                    <p class="text-xs sm:text-sm text-zinc-600 max-w-xl mx-auto leading-relaxed">
+                        Every FORME piece is constructed from sustainably sourced European organic fabrics, emphasizing durability, tactile softness, and precision tailoring.
+                    </p>
+                </section>
+            `;
+        }
+
+        // --- PRODUCT LISTING PAGE (PLP) RENDERER ---
+        function renderPLP(container) {
+            let filtered = PRODUCTS.filter(p => {
+                if (state.plpFilters.category === 'men') return p.category === 'Men';
+                if (state.plpFilters.category === 'women') return p.category === 'Women';
+                if (state.plpFilters.category === 'essentials') return p.collection === 'Everyday Essentials';
+                if (state.plpFilters.category === 'new') return p.isNew;
+                return true;
+            });
+
+            // Filter by size
+            if (state.plpFilters.size !== 'all') {
+                filtered = filtered.filter(p => p.sizes.includes(state.plpFilters.size));
+            }
+
+            // Filter by color
+            if (state.plpFilters.color !== 'all') {
+                filtered = filtered.filter(p => p.colors.includes(state.plpFilters.color));
+            }
+
+            // Search filter
+            if (state.plpFilters.search) {
+                const q = state.plpFilters.search.toLowerCase();
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+            }
+
+            // Sorting
+            if (state.plpFilters.sort === 'low-high') {
+                filtered.sort((a, b) => (a.salePrice || a.price) - (b.salePrice || b.price));
+            } else if (state.plpFilters.sort === 'high-low') {
+                filtered.sort((a, b) => (b.salePrice || b.price) - (a.salePrice || a.price));
+            } else if (state.plpFilters.sort === 'newest') {
+                filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+            }
+
+            // Fire GA4 view_item_list Event
+            pushToDataLayer('view_item_list', {
+                item_list_id: `plp_${state.plpFilters.category}`,
+                item_list_name: `Catalog - ${state.plpFilters.category.toUpperCase()}`,
+                items: filtered.map((p, idx) => ({
+                    item_id: p.id,
+                    item_name: p.name,
+                    item_category: p.category,
+                    price: p.salePrice || p.price,
+                    index: idx + 1
+                }))
+            });
+
+            container.innerHTML = `
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    
+                    <!-- Header Title -->
+                    <div class="border-b border-brand-gray pb-6 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-brand-accent">Catalog</span>
+                            <h1 class="text-3xl font-serif capitalize">${state.plpFilters.category} Collection</h1>
+                        </div>
+                        <span class="text-xs text-brand-accent">${filtered.length} products available</span>
+                    </div>
+
+                    <!-- Filters & Search Toolbar -->
+                    <div class="bg-brand-beige/60 p-4 rounded-md mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                        
+                        <!-- Size Filter -->
+                        <div>
+                            <label class="block font-medium uppercase tracking-wider mb-1 text-zinc-600">Size</label>
+                            <select onchange="updatePLPFilter('size', this.value)" class="w-full bg-white border border-brand-gray p-2 rounded focus:outline-none">
+                                <option value="all" ${state.plpFilters.size === 'all' ? 'selected' : ''}>All Sizes</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+
+                        <!-- Color Filter -->
+                        <div>
+                            <label class="block font-medium uppercase tracking-wider mb-1 text-zinc-600">Color</label>
+                            <select onchange="updatePLPFilter('color', this.value)" class="w-full bg-white border border-brand-gray p-2 rounded focus:outline-none">
+                                <option value="all" ${state.plpFilters.color === 'all' ? 'selected' : ''}>All Colors</option>
+                                <option value="White">White / Ivory</option>
+                                <option value="Black">Black</option>
+                                <option value="Charcoal">Charcoal</option>
+                                <option value="Taupe">Taupe / Beige</option>
+                            </select>
+                        </div>
+
+                        <!-- Sorting -->
+                        <div>
+                            <label class="block font-medium uppercase tracking-wider mb-1 text-zinc-600">Sort By</label>
+                            <select onchange="updatePLPFilter('sort', this.value)" class="w-full bg-white border border-brand-gray p-2 rounded focus:outline-none">
+                                <option value="featured" ${state.plpFilters.sort === 'featured' ? 'selected' : ''}>Featured</option>
+                                <option value="newest" ${state.plpFilters.sort === 'newest' ? 'selected' : ''}>Newest Arrivals</option>
+                                <option value="low-high" ${state.plpFilters.sort === 'low-high' ? 'selected' : ''}>Price: Low to High</option>
+                                <option value="high-low" ${state.plpFilters.sort === 'high-low' ? 'selected' : ''}>Price: High to Low</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Button -->
+                        <div class="flex items-end">
+                            <button onclick="resetPLPFilters()" class="w-full bg-brand-black text-white py-2 rounded hover:bg-brand-charcoal uppercase tracking-widest text-[11px] font-semibold">Reset Filters</button>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    ${filtered.length > 0 ? `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                            ${filtered.map(p => renderProductCardHTML(p)).join('')}
+                        </div>
+                    ` : `
+                        <div class="text-center py-24 space-y-4">
+                            <i class="fa-solid fa-shirt text-4xl text-brand-accent"></i>
+                            <h3 class="text-lg font-serif">No products found</h3>
+                            <p class="text-xs text-brand-accent">Try adjusting your filters or search keywords.</p>
+                            <button onclick="resetPLPFilters()" class="bg-brand-black text-white text-xs uppercase px-6 py-2.5 rounded tracking-widest">Clear Filters</button>
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        function renderProductCardHTML(product) {
+            return `
+                <div class="group cursor-pointer flex flex-col justify-between h-full" onclick="handleProductClick('${product.id}')">
+                    <div class="relative bg-brand-beige rounded overflow-hidden aspect-[3/4] mb-4 img-zoom-container">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover img-zoom">
+                        ${product.isNew ? `<span class="absolute top-3 left-3 bg-brand-black text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold rounded-sm">New</span>` : ''}
+                        ${product.salePrice ? `<span class="absolute top-3 right-3 bg-amber-700 text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold rounded-sm">Sale</span>` : ''}
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <span class="text-[10px] uppercase tracking-widest text-brand-accent">${product.category} &bull; ${product.collection}</span>
+                        <h3 class="text-sm font-medium text-brand-black group-hover:underline">${product.name}</h3>
+                        <div class="flex items-center space-x-2 text-xs font-semibold">
+                            ${product.salePrice ? `
+                                <span class="text-amber-800">$${product.salePrice.toFixed(2)}</span>
+                                <span class="text-zinc-400 line-through font-normal">$${product.price.toFixed(2)}</span>
+                            ` : `
+                                <span>$${product.price.toFixed(2)}</span>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleProductClick(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (product) {
+                pushToDataLayer('select_item', {
+                    item_list_id: `plp_${state.plpFilters.category}`,
+                    items: [{
+                        item_id: product.id,
+                        item_name: product.name,
+                        item_category: product.category,
+                        price: product.salePrice || product.price
+                    }]
+                });
+                navigateTo('pdp', productId);
+            }
+        }
+
+        function updatePLPFilter(key, value) {
+            state.plpFilters[key] = value;
+            const app = document.getElementById('appView');
+            renderPLP(app);
+        }
+
+        function resetPLPFilters() {
+            state.plpFilters = { category: 'all', size: 'all', color: 'all', sort: 'featured', search: '' };
+            const app = document.getElementById('appView');
+            renderPLP(app);
+        }
+
+        // --- PRODUCT DETAIL PAGE (PDP) RENDERER ---
+        function renderPDP(container, productId) {
+            const product = PRODUCTS.find(p => p.id === productId) || PRODUCTS[0];
+            state.selectedProduct = product;
+            state.selectedSize = '';
+            state.selectedColor = product.colors[0] || '';
+            state.selectedQty = 1;
+
+            // Fire GA4 view_item & Meta ViewContent Event
+            pushToDataLayer('view_item', {
+                currency: "USD",
+                value: product.salePrice || product.price,
+                items: [{
+                    item_id: product.id,
+                    item_name: product.name,
+                    item_category: product.category,
+                    price: product.salePrice || product.price,
+                    item_variant: `${state.selectedColor}`
+                }]
+            });
+
+            container.innerHTML = `
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <!-- Breadcrumbs -->
+                    <nav class="text-xs text-brand-accent uppercase tracking-widest mb-8 space-x-2">
+                        <a href="#" onclick="navigateTo('home'); return false;" class="hover:underline">Home</a>
+                        <span>/</span>
+                        <a href="#" onclick="navigateTo('plp', '${product.category.toLowerCase()}'); return false;" class="hover:underline">${product.category}</a>
+                        <span>/</span>
+                        <span class="text-brand-black">${product.name}</span>
+                    </nav>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                        
+                        <!-- Image Gallery -->
+                        <div class="space-y-4">
+                            <div class="bg-brand-beige rounded overflow-hidden aspect-[3/4] shadow-sm">
+                                <img id="pdpMainImage" src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <!-- Product Form & Details -->
+                        <div class="space-y-6">
+                            <div>
+                                <span class="text-xs uppercase tracking-widest text-brand-accent">${product.collection}</span>
+                                <h1 class="text-3xl font-serif text-brand-black mt-1">${product.name}</h1>
+                                <div class="mt-3 flex items-center space-x-3 text-lg font-semibold">
+                                    ${product.salePrice ? `
+                                        <span class="text-amber-800">$${product.salePrice.toFixed(2)}</span>
+                                        <span class="text-zinc-400 line-through text-base font-normal">$${product.price.toFixed(2)}</span>
+                                    ` : `
+                                        <span>$${product.price.toFixed(2)}</span>
+                                    `}
+                                </div>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed">${product.description}</p>
+
+                            <!-- Color Selector -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Color: <span id="selectedColorLabel" class="font-normal text-zinc-600">${state.selectedColor}</span></label>
+                                <div class="flex space-x-3">
+                                    ${product.colors.map(color => `
+                                        <button onclick="selectColor('${color}')" class="color-btn border-2 px-3 py-1.5 rounded text-xs font-medium uppercase tracking-wider ${color === state.selectedColor ? 'border-brand-black bg-brand-beige' : 'border-brand-gray hover:border-zinc-400'}">
+                                            ${color}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Size Selector -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="block text-xs font-semibold uppercase tracking-wider">Select Size <span class="text-rose-600">*</span></label>
+                                    <button onclick="alert('FORME Sizing Guide: S fits chest 36-38 in, M fits 38-40 in, L fits 40-42 in.');" class="text-[11px] underline text-zinc-500 hover:text-black">Size Guide</button>
+                                </div>
+                                <div id="sizePickerContainer" class="grid grid-cols-4 gap-3">
+                                    ${product.sizes.map(size => `
+                                        <button onclick="selectSize('${size}')" id="sizeBtn-${size}" class="size-btn border py-2.5 text-xs font-semibold rounded hover:border-brand-black transition uppercase">
+                                            ${size}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <p id="sizeError" class="text-[11px] text-rose-600 mt-1 hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Please select a size to proceed.</p>
+                            </div>
+
+                            <!-- Quantity Selector -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Quantity</label>
+                                <div class="flex items-center space-x-3 border border-brand-gray rounded w-32 p-1">
+                                    <button onclick="updateQty(-1)" class="w-8 h-8 flex items-center justify-center text-sm hover:bg-brand-gray rounded">-</button>
+                                    <span id="qtyDisplay" class="flex-grow text-center text-xs font-semibold">1</span>
+                                    <button onclick="updateQty(1)" class="w-8 h-8 flex items-center justify-center text-sm hover:bg-brand-gray rounded">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Stock Status -->
+                            <div class="flex items-center space-x-2 text-xs text-emerald-700">
+                                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                <span>In Stock — Ready to ship from Studio</span>
+                            </div>
+
+                            <!-- CTA Buttons -->
+                            <div class="space-y-3 pt-2">
+                                <button onclick="handleAddToCart()" class="w-full bg-brand-black text-white text-xs font-semibold uppercase tracking-widest py-4 rounded hover:bg-brand-charcoal transition flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-bag-shopping"></i>
+                                    <span>Add to Bag</span>
+                                </button>
+                            </div>
+
+                            <!-- Expandable Accordions -->
+                            <div class="border-t border-brand-gray pt-4 space-y-3 text-xs">
+                                <details class="group py-2 border-b border-brand-gray/50">
+                                    <summary class="font-semibold uppercase tracking-wider cursor-pointer flex justify-between items-center">
+                                        <span>Product Details & Features</span>
+                                        <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition"></i>
+                                    </summary>
+                                    <ul class="mt-3 list-disc pl-4 space-y-1 text-zinc-600">
+                                        ${product.details.map(d => `<li>${d}</li>`).join('')}
+                                    </ul>
+                                </details>
+
+                                <details class="group py-2 border-b border-brand-gray/50">
+                                    <summary class="font-semibold uppercase tracking-wider cursor-pointer flex justify-between items-center">
+                                        <span>Fabric & Care Instructions</span>
+                                        <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition"></i>
+                                    </summary>
+                                    <p class="mt-3 text-zinc-600 leading-relaxed">
+                                        Machine wash cold with like colors on gentle cycle. Do not bleach. Tumble dry low or line dry in shade to preserve textile fiber strength.
+                                    </p>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectColor(color) {
+            state.selectedColor = color;
+            const label = document.getElementById('selectedColorLabel');
+            if (label) label.innerText = color;
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                if (btn.innerText.trim() === color) {
+                    btn.className = 'color-btn border-2 px-3 py-1.5 rounded text-xs font-medium uppercase tracking-wider border-brand-black bg-brand-beige';
+                } else {
+                    btn.className = 'color-btn border-2 px-3 py-1.5 rounded text-xs font-medium uppercase tracking-wider border-brand-gray hover:border-zinc-400';
+                }
+            });
+        }
+
+        function selectSize(size) {
+            state.selectedSize = size;
+            document.getElementById('sizeError').classList.add('hidden');
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('border-brand-black', 'bg-brand-black', 'text-white');
+                btn.classList.add('border-brand-gray');
+            });
+            const activeBtn = document.getElementById(`sizeBtn-${size}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-brand-gray');
+                activeBtn.classList.add('border-brand-black', 'bg-brand-black', 'text-white');
+            }
+        }
+
+        function updateQty(delta) {
+            state.selectedQty = Math.max(1, state.selectedQty + delta);
+            document.getElementById('qtyDisplay').innerText = state.selectedQty;
+        }
+
+        function handleAddToCart() {
+            if (!state.selectedSize) {
+                document.getElementById('sizeError').classList.remove('hidden');
+                return;
+            }
+
+            const product = state.selectedProduct;
+            const unitPrice = product.salePrice || product.price;
+
+            // Variant identification logic
+            const variantId = `${product.id}_${state.selectedSize}_${state.selectedColor}`;
+            const existingIdx = state.cart.findIndex(item => item.variantId === variantId);
+
+            if (existingIdx > -1) {
+                state.cart[existingIdx].quantity += state.selectedQty;
+            } else {
+                state.cart.push({
+                    variantId: variantId,
+                    id: product.id,
+                    name: product.name,
+                    category: product.category,
+                    price: unitPrice,
+                    size: state.selectedSize,
+                    color: state.selectedColor,
+                    image: product.image,
+                    quantity: state.selectedQty
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem('forme_cart', JSON.stringify(state.cart));
+
+            // Fire GA4 add_to_cart & Meta AddToCart Event
+            pushToDataLayer('add_to_cart', {
+                currency: 'USD',
+                value: unitPrice * state.selectedQty,
+                items: [{
+                    item_id: product.id,
+                    item_name: product.name,
+                    item_category: product.category,
+                    item_variant: `${state.selectedSize} / ${state.selectedColor}`,
+                    price: unitPrice,
+                    quantity: state.selectedQty
+                }]
+            });
+
+            showToast(`Added ${product.name} (${state.selectedSize}) to bag`);
+            updateCartUI();
+            toggleDrawer('cartDrawer');
+        }
+
+        // --- FULL CART PAGE RENDERER ---
+        function renderCartPage(container) {
+            const subtotal = calculateSubtotal();
+
+            // Fire GA4 view_cart Event
+            pushToDataLayer('view_cart', {
+                currency: 'USD',
+                value: subtotal,
+                items: state.cart.map(item => ({
+                    item_id: item.id,
+                    item_name: item.name,
+                    item_variant: `${item.size} / ${item.color}`,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
+            });
+
+            container.innerHTML = `
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <h1 class="text-3xl font-serif mb-8 border-b border-brand-gray pb-4">Your Shopping Bag</h1>
+
+                    ${state.cart.length > 0 ? `
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                            
+                            <!-- Cart Items List -->
+                            <div class="lg:col-span-2 space-y-6">
+                                ${state.cart.map((item, index) => `
+                                    <div class="flex space-x-4 border-b border-brand-gray/50 pb-6 items-center">
+                                        <img src="${item.image}" alt="${item.name}" class="w-20 h-28 object-cover rounded bg-brand-beige">
+                                        <div class="flex-grow space-y-1">
+                                            <h3 class="text-sm font-semibold">${item.name}</h3>
+                                            <p class="text-xs text-brand-accent">Size: ${item.size} | Color: ${item.color}</p>
+                                            <p class="text-xs font-semibold">$${item.price.toFixed(2)}</p>
+                                        </div>
+                                        <div class="flex items-center space-x-2 border border-brand-gray rounded px-2 py-1">
+                                            <button onclick="updateCartItemQty(${index}, -1)" class="text-xs px-1 hover:text-zinc-500">-</button>
+                                            <span class="text-xs font-semibold px-2">${item.quantity}</span>
+                                            <button onclick="updateCartItemQty(${index}, 1)" class="text-xs px-1 hover:text-zinc-500">+</button>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs font-semibold block">$${(item.price * item.quantity).toFixed(2)}</span>
+                                            <button onclick="removeCartItem(${index})" class="text-[10px] text-rose-600 hover:underline uppercase tracking-wider mt-1">Remove</button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <!-- Summary Sidebar -->
+                            <div class="bg-brand-beige p-6 rounded-md space-y-4 h-fit">
+                                <h3 class="text-xs font-semibold uppercase tracking-widest border-b border-brand-gray pb-3">Order Summary</h3>
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex justify-between">
+                                        <span>Subtotal</span>
+                                        <span class="font-semibold">$${subtotal.toFixed(2)}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Estimated Shipping</span>
+                                        <span>${subtotal >= 150 ? 'FREE' : '$10.00'}</span>
+                                    </div>
+                                </div>
+                                <div class="border-t border-brand-gray pt-3 flex justify-between font-semibold text-sm">
+                                    <span>Estimated Total</span>
+                                    <span>$${(subtotal + (subtotal >= 150 ? 0 : 10)).toFixed(2)}</span>
+                                </div>
+                                <button onclick="navigateTo('checkout')" class="w-full bg-brand-black text-white text-xs uppercase tracking-widest font-semibold py-3.5 rounded hover:bg-brand-charcoal transition">Proceed to Checkout</button>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="text-center py-20 space-y-4">
+                            <i class="fa-solid fa-bag-shopping text-4xl text-brand-accent"></i>
+                            <h2 class="text-xl font-serif">Your bag is empty</h2>
+                            <p class="text-xs text-brand-accent">Explore our collections and add your everyday essentials.</p>
+                            <button onclick="navigateTo('plp', 'all')" class="bg-brand-black text-white text-xs uppercase px-8 py-3 rounded tracking-widest font-semibold">Start Shopping</button>
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        // --- SIMULATED CHECKOUT PAGE RENDERER ---
+        function renderCheckoutPage(container) {
+            const subtotal = calculateSubtotal();
+            const shipping = subtotal >= 150 ? 0 : 10;
+            const total = subtotal + shipping;
+
+            // Fire GA4 begin_checkout & Meta InitiateCheckout Event
+            pushToDataLayer('begin_checkout', {
+                currency: 'USD',
+                value: total,
+                items: state.cart.map(item => ({
+                    item_id: item.id,
+                    item_name: item.name,
+                    item_variant: `${item.size} / ${item.color}`,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
+            });
+
+            container.innerHTML = `
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div class="border-b border-brand-gray pb-4 mb-8">
+                        <span class="text-xs uppercase tracking-widest text-emerald-600 font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> Demo Checkout Experience</span>
+                        <h1 class="text-3xl font-serif">Express Checkout</h1>
+                    </div>
+
+                    <form onsubmit="handleCheckoutSubmit(event)" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        
+                        <!-- Form Fields -->
+                        <div class="lg:col-span-2 space-y-8">
+                            
+                            <!-- Contact Info -->
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-semibold uppercase tracking-widest text-brand-black border-b border-brand-gray pb-2">1. Contact Information</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[11px] uppercase tracking-wider mb-1">Full Name *</label>
+                                        <input type="text" id="custName" required value="Alex Morgan" class="w-full bg-white border border-brand-gray p-2.5 text-xs rounded focus:outline-none focus:border-brand-black">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] uppercase tracking-wider mb-1">Email Address *</label>
+                                        <input type="email" id="custEmail" required value="alex.m@example-lab.com" class="w-full bg-white border border-brand-gray p-2.5 text-xs rounded focus:outline-none focus:border-brand-black">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipping Address -->
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-semibold uppercase tracking-widest text-brand-black border-b border-brand-gray pb-2">2. Shipping Address</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[11px] uppercase tracking-wider mb-1">Street Address *</label>
+                                        <input type="text" id="custAddress" required value="742 Evergreen Terrace" class="w-full bg-white border border-brand-gray p-2.5 text-xs rounded focus:outline-none focus:border-brand-black">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-[11px] uppercase tracking-wider mb-1">City *</label>
+                                            <input type="text" id="custCity" required value="New York" class="w-full bg-white border border-brand-gray p-2.5 text-xs rounded focus:outline-none focus:border-brand-black">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[11px] uppercase tracking-wider mb-1">Postal Code *</label>
+                                            <input type="text" id="custZip" required value="10001" class="w-full bg-white border border-brand-gray p-2.5 text-xs rounded focus:outline-none focus:border-brand-black">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Simulation -->
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-semibold uppercase tracking-widest text-brand-black border-b border-brand-gray pb-2">3. Payment Method (Simulated)</h3>
+                                <div class="bg-brand-beige p-4 rounded border border-brand-gray space-y-3">
+                                    <label class="flex items-center space-x-3 cursor-pointer">
+                                        <input type="radio" name="paymentMethod" value="card" checked onchange="firePaymentInfoEvent()" class="text-brand-black">
+                                        <span class="text-xs font-medium">Demo Credit Card (No actual card required)</span>
+                                    </label>
+                                    <p class="text-[11px] text-zinc-500 pl-6">This is an educational sandbox store. Orders will complete in test mode only.</p>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-brand-black text-white text-xs font-semibold uppercase tracking-widest py-4 rounded hover:bg-brand-charcoal transition">Place Demo Order ($${total.toFixed(2)})</button>
+                        </div>
+
+                        <!-- Sidebar Order Summary -->
+                        <div class="bg-brand-beige p-6 rounded-md space-y-4 h-fit">
+                            <h3 class="text-xs font-semibold uppercase tracking-widest border-b border-brand-gray pb-3">Order Items (${state.cart.length})</h3>
+                            <div class="space-y-3 max-h-60 overflow-y-auto">
+                                ${state.cart.map(item => `
+                                    <div class="flex items-center space-x-3 text-xs">
+                                        <img src="${item.image}" class="w-12 h-14 object-cover rounded">
+                                        <div class="flex-grow">
+                                            <p class="font-medium">${item.name}</p>
+                                            <p class="text-[10px] text-zinc-500">Qty: ${item.quantity} | Size: ${item.size}</p>
+                                        </div>
+                                        <span class="font-semibold">$${(item.price * item.quantity).toFixed(2)}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="border-t border-brand-gray pt-3 space-y-1.5 text-xs">
+                                <div class="flex justify-between">
+                                    <span>Subtotal</span>
+                                    <span>$${subtotal.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Shipping</span>
+                                    <span>$${shipping.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between font-bold text-sm border-t border-brand-gray pt-2">
+                                    <span>Total</span>
+                                    <span>$${total.toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            `;
+        }
+
+        function firePaymentInfoEvent() {
+            pushToDataLayer('add_payment_info', {
+                currency: 'USD',
+                value: calculateSubtotal(),
+                payment_type: 'Demo Card'
+            });
+        }
+
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+
+            const subtotal = calculateSubtotal();
+            const shipping = subtotal >= 150 ? 0 : 10;
+            const total = subtotal + shipping;
+
+            // Generate unique transaction ID
+            const orderId = `FORME-ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+
+            state.lastOrder = {
+                orderId: orderId,
+                items: [...state.cart],
+                subtotal: subtotal,
+                shipping: shipping,
+                total: total,
+                customer: {
+                    name: document.getElementById('custName').value,
+                    email: document.getElementById('custEmail').value
+                }
+            };
+
+            // Fire GA4 purchase & Meta Purchase Event
+            pushToDataLayer('purchase', {
+                transaction_id: orderId,
+                value: total,
+                tax: 0.00,
+                shipping: shipping,
+                currency: 'USD',
+                items: state.cart.map(item => ({
+                    item_id: item.id,
+                    item_name: item.name,
+                    item_category: item.category,
+                    item_variant: `${item.size} / ${item.color}`,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
+            });
+
+            // Clear Cart & Mark Completed
+            state.cart = [];
+            localStorage.removeItem('forme_cart');
+            state.orderCompleted = true;
+
+            navigateTo('confirmation');
+        }
+
+        // --- ORDER CONFIRMATION RENDERER ---
+        function renderConfirmationPage(container) {
+            const order = state.lastOrder;
+
+            if (!order) {
+                navigateTo('home');
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="max-w-3xl mx-auto px-4 py-20 text-center space-y-6">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest text-emerald-700 font-semibold">Demo Order Confirmed</span>
+                    <h1 class="text-3xl sm:text-4xl font-serif">Thank you for your order</h1>
+                    <p class="text-xs text-brand-accent">Order Reference: <span class="font-mono font-bold text-brand-black">${order.orderId}</span></p>
+
+                    <div class="bg-brand-beige p-6 rounded-md text-left text-xs space-y-4 max-w-lg mx-auto border border-brand-gray/60">
+                        <h3 class="font-semibold uppercase tracking-wider border-b border-brand-gray pb-2">Purchased Items</h3>
+                        <div class="space-y-2">
+                            ${order.items.map(i => `
+                                <div class="flex justify-between">
+                                    <span>${i.name} (${i.size}/${i.color}) x${i.quantity}</span>
+                                    <span class="font-semibold">$${(i.price * i.quantity).toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="border-t border-brand-gray pt-2 flex justify-between font-bold text-sm">
+                            <span>Total Paid</span>
+                            <span>$${order.total.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button onclick="navigateTo('home')" class="bg-brand-black text-white text-xs uppercase font-semibold px-8 py-3 rounded tracking-widest hover:bg-brand-charcoal">Return to Storefront</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ==========================================================================
+           6. HELPER & UI UTILITY FUNCTIONS
+           ========================================================================== */
+        function calculateSubtotal() {
+            return state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+
+        function updateCartUI() {
+            const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartBadge');
+            const drawerCount = document.getElementById('drawerCartCount');
+            if (badge) badge.innerText = count;
+            if (drawerCount) drawerCount.innerText = `(${count} items)`;
+
+            const subtotal = calculateSubtotal();
+            
+            // Drawer Progress Bar
+            const threshold = 150;
+            const percent = Math.min(100, Math.round((subtotal / threshold) * 100));
+            const progressBar = document.getElementById('shippingProgressBar');
+            const percentLabel = document.getElementById('shippingThresholdPercent');
+            const textLabel = document.getElementById('shippingThresholdText');
+
+            if (progressBar) progressBar.style.width = `${percent}%`;
+            if (percentLabel) percentLabel.innerText = `${percent}%`;
+            if (textLabel) {
+                textLabel.innerText = subtotal >= threshold ? 'Free Shipping Unlocked!' : `Add $${(threshold - subtotal).toFixed(2)} for Free Shipping`;
+            }
+
+            // Drawer Items Render
+            const drawerContainer = document.getElementById('cartDrawerItems');
+            const drawerSubtotal = document.getElementById('drawerSubtotal');
+            const drawerTotal = document.getElementById('drawerTotal');
+
+            if (drawerSubtotal) drawerSubtotal.innerText = `$${subtotal.toFixed(2)}`;
+            if (drawerTotal) drawerTotal.innerText = `$${subtotal.toFixed(2)}`;
+
+            if (drawerContainer) {
+                if (state.cart.length === 0) {
+                    drawerContainer.innerHTML = `
+                        <div class="text-center py-12 text-brand-accent space-y-2">
+                            <i class="fa-solid fa-bag-shopping text-3xl"></i>
+                            <p class="text-xs">Your bag is currently empty.</p>
+                        </div>
+                    `;
+                } else {
+                    drawerContainer.innerHTML = state.cart.map((item, index) => `
+                        <div class="flex space-x-4 text-xs border-b border-brand-gray/50 pb-4 items-center">
+                            <img src="${item.image}" class="w-16 h-20 object-cover rounded bg-brand-beige">
+                            <div class="flex-grow space-y-1">
+                                <h4 class="font-medium">${item.name}</h4>
+                                <p class="text-[10px] text-zinc-500">${item.size} / ${item.color}</p>
+                                <span class="font-semibold block">$${item.price.toFixed(2)}</span>
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <button onclick="removeCartItem(${index})" class="text-[10px] text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                <div class="flex items-center space-x-1 border border-brand-gray rounded px-1.5 py-0.5">
+                                    <button onclick="updateCartItemQty(${index}, -1)">-</button>
+                                    <span class="px-1 font-semibold">${item.quantity}</span>
+                                    <button onclick="updateCartItemQty(${index}, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).map(x => x).join('');
+                }
+            }
+        }
+
+        function updateCartItemQty(index, delta) {
+            state.cart[index].quantity += delta;
+            if (state.cart[index].quantity <= 0) {
+                removeCartItem(index);
+            } else {
+                localStorage.setItem('forme_cart', JSON.stringify(state.cart));
+                updateCartUI();
+                if (state.currentView === 'cart') renderCartPage(document.getElementById('appView'));
+            }
+        }
+
+        function removeCartItem(index) {
+            const removed = state.cart.splice(index, 1)[0];
+            localStorage.setItem('forme_cart', JSON.stringify(state.cart));
+
+            pushToDataLayer('remove_from_cart', {
+                currency: 'USD',
+                value: removed.price * removed.quantity,
+                items: [{
+                    item_id: removed.id,
+                    item_name: removed.name,
+                    price: removed.price,
+                    quantity: removed.quantity
+                }]
+            });
+
+            updateCartUI();
+            if (state.currentView === 'cart') renderCartPage(document.getElementById('appView'));
+        }
+
+        function toggleDrawer(id) {
+            const drawer = document.getElementById(id);
+            if (drawer) drawer.classList.toggle('hidden');
+        }
+
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        function toggleConsole() {
+            const consoleDrawer = document.getElementById('consoleDrawer');
+            if (consoleDrawer) {
+                consoleDrawer.classList.toggle('translate-y-full');
+            }
+        }
+
+        function toggleSearchBar() {
+            const bar = document.getElementById('searchBar');
+            if (bar) bar.classList.toggle('hidden');
+        }
+
+        function handleSearch(e) {
+            state.plpFilters.search = e.target.value;
+            if (state.currentView !== 'plp') {
+                navigateTo('plp', 'all');
+            } else {
+                renderPLP(document.getElementById('appView'));
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const message = document.getElementById('toastMessage');
+            if (toast && message) {
+                message.innerText = msg;
+                toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-[-100px]', 'opacity-0');
+                }, 3000);
+            }
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to FORME Studio previews.');
+            e.target.reset();
+        }
+
+        /* ==========================================================================
+           7. INITIALIZATION ON WINDOW LOAD
+           ========================================================================== */
+        window.onload = function() {
+            // Render default homepage view
+            navigateTo('home');
+            updateCartUI();
+            
+            // Initial DL push
+            pushToDataLayer('page_view', {
+                page_title: 'FORME Storefront Home',
+                page_location: window.location.href
+            });
+        };
+    </script>
+</body>
+</html>
